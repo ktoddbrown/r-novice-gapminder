@@ -10,6 +10,7 @@ objectives:
 keypoints:
 - "Use `ggplot2` to create plots."
 - "Think about graphics in layers: aesthetics, geometry, statistics, scale transformation, and grouping."
+source: Rmd
 ---
 
 
@@ -92,7 +93,7 @@ ggplot(data = gapminder, aes(x = gdpPercap, y = lifeExp)) +
 
 > ## Challenge 1
 >
-> Modify the example so that the figure visualise how life expectancy has
+> Modify the example so that the figure shows how life expectancy has
 > changed over time:
 >
 > 
@@ -106,8 +107,7 @@ ggplot(data = gapminder, aes(x = gdpPercap, y = lifeExp)) +
 >
 > > ## Solution to challenge 1
 > >
-> > Modify the example so that the figure visualise how life expectancy has
-> > changed over time:
+> > Here is one possible solution:
 > >
 > > 
 > > ~~~
@@ -341,7 +341,7 @@ variables and their visual representation.
 > >
 > >~~~
 > > ggplot(data = gapminder, aes(x = gdpPercap, y = lifeExp, color = continent)) +
-> > geom_point(size=3, pch=17) + scale_x_log10() +
+> > geom_point(size=3, shape=17) + scale_x_log10() +
 > > geom_smooth(method="lm", size=1.5)
 > >~~~
 > >{: .r}
@@ -392,16 +392,22 @@ elements. The x-axis is too cluttered, and the y axis should read
 "Life expectancy", rather than the column name in the data frame.
 
 We can do this by adding a couple of different layers. The **theme** layer
-controls the axis text, and overall text size, and there are special layers
-for changing the axis labels. To change the legend title, we need to use the
-**scales** layer.
+controls the axis text, and overall text size. Labels for the axes, plot 
+title and any legend can be set using the `labs` function. Legend titles
+are set using the same names we used in the `aes` specification. Thus below
+the color legend title is set using `color = "Continent"`, while the title 
+of a fill legend would be set using `fill = "MyTitle"`. 
 
 
 ~~~
 ggplot(data = az.countries, aes(x = year, y = lifeExp, color=continent)) +
   geom_line() + facet_wrap( ~ country) +
-  xlab("Year") + ylab("Life expectancy") + ggtitle("Figure 1") +
-  scale_colour_discrete(name="Continent") +
+  labs(
+    x = "Year",              # x axis title
+    y = "Life expectancy",   # y axis title
+    title = "Figure 1",      # main title of figure
+    color = "Continent"      # title of legend
+  ) +
   theme(axis.text.x=element_blank(), axis.ticks.x=element_blank())
 ~~~
 {: .r}

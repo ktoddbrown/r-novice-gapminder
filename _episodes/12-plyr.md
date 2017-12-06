@@ -8,6 +8,7 @@ objectives:
 - "To be able to use the split-apply-combine strategy for data analysis."
 keypoints:
 - "Use the `plyr` package to split data, apply functions to subsets, and combine the results."
+source: Rmd
 ---
 
 
@@ -41,7 +42,7 @@ run calculations on different groups within the data. In the above, we were
 simply calculating the GDP by multiplying two columns together. But what if
 we wanted to calculated the mean GDP per continent?
 
-We could run `calcGPD` and then take the mean of each continent:
+We could run `calcGDP` and then take the mean of each continent:
 
 
 ~~~
@@ -95,7 +96,7 @@ also takes a substantial amount of effort and testing to get right.
 
 The abstract problem we're encountering here is know as "split-apply-combine":
 
-![Split apply combine](../fig/splitapply.png)
+![Split apply combine](../fig/12-plyr-fig1.png)
 
 We want to *split* our data into groups, in this case continents, *apply*
 some calculations on that group, then optionally *combine* the results
@@ -113,7 +114,7 @@ We installed this package in an earlier challenge. Let's load it now:
 
 
 ~~~
-library(plyr)
+library("plyr")
 ~~~
 {: .r}
 
@@ -138,7 +139,7 @@ table)
 Note here that plyr's use of "array" is different to R's,
 an array in ply can include a vector or matrix.
 
-![Full apply suite](../fig/full_apply_suite.png)
+![Full apply suite](../fig/12-plyr-fig2.png)
 
 
 Each of the xxply functions (`daply`, `ddply`, `llply`, `laply`, ...) has the
@@ -194,6 +195,12 @@ returns another `data.frame` (2nd letter is a **d**) i
   gets stored in `x`, the first argument of our function. This is an anonymous
   function: we haven't defined it elsewhere, and it has no name. It only exists
   in the scope of our call to `ddply`.
+
+> ## Challenge 1
+>
+> Calculate the average life expectancy per continent. Which has the longest?
+> Which had the shortest?
+{: .challenge}
 
 What if we want a different type of output data structure?:
 
@@ -392,13 +399,6 @@ d_ply(
 > The `format` function can be used to make numeric
 > values "pretty" for printing out in messages.
 {: .callout}
-
-
-> ## Challenge 1
->
-> Calculate the average life expectancy per continent. Which has the longest?
-> Which had the shortest?
-{: .challenge}
 
 > ## Challenge 2
 >
